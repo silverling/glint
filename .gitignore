@@ -1,0 +1,8 @@
+.cache/
+build/
+dist/
+
+# Event stream files
+*.raw
+*.bias
+*.tmp_index

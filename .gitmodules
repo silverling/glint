@@ -1,0 +1,6 @@
+[submodule "vendors/openeb"]
+	path = vendors/openeb
+	url = https://github.com/prophesee-ai/openeb.git
+[submodule "vendors/imgui"]
+	path = vendors/imgui
+	url = https://github.com/ocornut/imgui.git
