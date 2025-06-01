@@ -10,6 +10,7 @@
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <limits>
@@ -802,6 +803,8 @@ void Engine::createImGui() {
 
     // Enable ImGui's font atlas to support UTF-8 characters
     {
+        auto exe_dir = std::filesystem::canonical("/proc/self/exe").parent_path();
+
         // Base font sizes in standard resolution (1920x1080)
         float fontBaseSize = 18.0f;    // Base font size for latin characters
         float fontCJKBaseSize = 24.0f; // Base font size for CJK characters
@@ -812,15 +815,15 @@ void Engine::createImGui() {
         ImFontConfig config;
         config.MergeMode = false; // First font, no merge
         config.PixelSnapH = true;
-        io.Fonts->AddFontFromFileTTF("./res/fonts/Iosevka_Fixed/IosevkaFixed-Regular.ttf", computedFontSize, &config,
-                                     io.Fonts->GetGlyphRangesDefault());
+        io.Fonts->AddFontFromFileTTF((exe_dir / "res/fonts/Iosevka_Fixed/IosevkaFixed-Regular.ttf").c_str(),
+                                     computedFontSize, &config, io.Fonts->GetGlyphRangesDefault());
 
         // 1.5 Enable font merging
         config.MergeMode = true; // Merge into previous font
 
         // 2. Load Chinese, Japanese, Korean (CJK) font
-        io.Fonts->AddFontFromFileTTF("./res/fonts/Noto_Serif_SC/NotoSerifSC-Regular.ttf", computedCJKFontSize, &config,
-                                     io.Fonts->GetGlyphRangesChineseFull());
+        io.Fonts->AddFontFromFileTTF((exe_dir / "res/fonts/Noto_Serif_SC/NotoSerifSC-Regular.ttf").c_str(),
+                                     computedCJKFontSize, &config, io.Fonts->GetGlyphRangesChineseFull());
 
         io.Fonts->Build();
     }

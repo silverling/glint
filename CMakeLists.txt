@@ -45,3 +45,6 @@ target_compile_definitions(viewer PRIVATE IMGUI_USE_WCHAR32) # ImGui Configs
 if(CMAKE_BUILD_TYPE STREQUAL Release)
     target_compile_definitions(viewer PRIVATE NDEBUG)
 endif()
+
+include(cmake/link_resource_folder.cmake)
+add_dependencies(viewer resource)
