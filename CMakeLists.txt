@@ -20,6 +20,7 @@ add_executable(viewer
     src/main.cpp
     src/engine.cpp
     src/engine_ext.cpp
+    src/engine_theme.cpp
     src/texture.cpp
     src/app.cpp
     src/app_cli.cpp

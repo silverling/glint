@@ -1,5 +1,5 @@
 #include "engine.h"
-#include "static/index.h"
+#include "engine_theme.h"
 
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_vulkan.h>
@@ -11,7 +11,6 @@
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
-#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <limits>
@@ -794,44 +793,9 @@ VKAPI_ATTR VkBool32 VKAPI_CALL Engine::debugCallback(VkDebugUtilsMessageSeverity
 void Engine::createImGui() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
 
-    {
-        io.IniFilename = nullptr;                         // We don't want to save/load .ini file
-        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // Enable Docking
-        // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable; // Enable Multi-Viewport
-    }
-
-    // Enable ImGui's font atlas to support UTF-8 characters
-    {
-        auto exe_dir = std::filesystem::canonical("/proc/self/exe").parent_path();
-
-        // Base font sizes in standard resolution (1920x1080)
-        float fontBaseSize = 18.0f;    // Base font size for latin characters
-        float fontCJKBaseSize = 24.0f; // Base font size for CJK characters
-        float computedFontSize = fontBaseSize * (pVidmode->width / 1920.0f);
-        float computedCJKFontSize = fontCJKBaseSize * (pVidmode->width / 1920.0f);
-
-        // 1. Load base font (e.g., Latin alphabet)
-        ImFontConfig config;
-        config.MergeMode = false; // First font, no merge
-        config.PixelSnapH = true;
-        io.Fonts->AddFontFromFileTTF((exe_dir / "res/fonts/Iosevka_Fixed/IosevkaFixed-Regular.ttf").c_str(),
-                                     computedFontSize, &config, io.Fonts->GetGlyphRangesDefault());
-
-        // 1.5 Enable font merging
-        config.MergeMode = true; // Merge into previous font
-
-        // 2. Load Chinese, Japanese, Korean (CJK) font
-        io.Fonts->AddFontFromFileTTF((exe_dir / "res/fonts/Noto_Serif_SC/NotoSerifSC-Regular.ttf").c_str(),
-                                     computedCJKFontSize, &config, io.Fonts->GetGlyphRangesChineseFull());
-
-        // 3. Load FontAwesome font for icons.
-        io.Fonts->AddFontFromFileTTF((exe_dir / "res/fonts/FontAwesome/otfs/Font Awesome 6 Free-Solid-900.otf").c_str(),
-                                     computedFontSize, &config, fontawesome_solid_glyph_ranges);
-
-        io.Fonts->Build();
-    }
+    config_imgui_style();
+    config_imgui_font(pVidmode);
 
     ImGui_ImplGlfw_InitForVulkan(pWindow, true);
 

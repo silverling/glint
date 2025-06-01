@@ -366,8 +366,6 @@ void App::render(VkCommandBuffer commandBuffer) {
         drawCameraPane(this);
         drawLogPane(this);
 
-        ImGui::ShowStyleEditor();
-
         ImGui::End();
     }
 
