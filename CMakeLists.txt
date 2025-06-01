@@ -25,6 +25,7 @@ add_executable(viewer
     src/app_cli.cpp
     src/app_utils.cpp
     src/camera_util.cpp
+    src/static/glyph_ranges.cpp
     vendors/imgui/imgui.cpp
     vendors/imgui/imgui_demo.cpp
     vendors/imgui/imgui_draw.cpp

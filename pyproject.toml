@@ -1,0 +1,17 @@
+[project]
+name = "glint"
+description = "An event camera viewer."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["fonttools>=4.58.1"]
+
+# The version here is dummy for now. Because currently I only use python for script utils.
+version = "0.1.0"
+
+
+[[tool.uv.index]]
+url = "https://mirrors.pku.edu.cn/pypi/web/simple"
+default = true
+
+[dependency-groups]
+dev = ["fonttools>=4.58.1"]

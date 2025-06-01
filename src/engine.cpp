@@ -1,4 +1,5 @@
 #include "engine.h"
+#include "static/index.h"
 
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_vulkan.h>
@@ -824,6 +825,10 @@ void Engine::createImGui() {
         // 2. Load Chinese, Japanese, Korean (CJK) font
         io.Fonts->AddFontFromFileTTF((exe_dir / "res/fonts/Noto_Serif_SC/NotoSerifSC-Regular.ttf").c_str(),
                                      computedCJKFontSize, &config, io.Fonts->GetGlyphRangesChineseFull());
+
+        // 3. Load FontAwesome font for icons.
+        io.Fonts->AddFontFromFileTTF((exe_dir / "res/fonts/FontAwesome/otfs/Font Awesome 6 Free-Solid-900.otf").c_str(),
+                                     computedFontSize, &config, fontawesome_solid_glyph_ranges);
 
         io.Fonts->Build();
     }

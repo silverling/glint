@@ -135,18 +135,21 @@ void inline drawToolPane(App *app) {
 
                 ImGui::TableNextColumn();
                 if (camera->paused()) {
-                    sprintf(buf, "Resume##%lu", i);
+                    sprintf(buf, "##%lu", i);
                     if (ImGui::Button(buf)) {
                         camera->resume();
                     }
+                    ImGui::SetItemTooltip("Resume");
                 } else {
-                    sprintf(buf, "Pause##%lu", i);
+                    sprintf(buf, "##%lu", i);
                     if (ImGui::Button(buf)) {
                         camera->pause();
                     }
+                    ImGui::SetItemTooltip("Pause");
                     ImGui::SameLine();
-                    sprintf(buf, "Start recording##%lu", i);
+                    sprintf(buf, "##%lu", i);
                     ImGui::Button(buf);
+                    ImGui::SetItemTooltip("Start recording");
                 }
             }
             ImGui::EndTable();
